@@ -1,0 +1,19 @@
+{
+  "theme": "المظهر",
+  "goToHome": "اذهب إلى الرئيسية",
+  "light": "فاتح",
+  "dark": "داكن",
+  "language": "اللغة",
+  "arabic": "عربي",
+  "english": "إنجليزي",
+  "goodMorning": "صباح الخير",
+  "newsIntro": "إليك بعض الأخبار لك",
+  "home": "الرئيسية",
+  "general": "عام",
+  "business": "أعمال",
+  "technology": "تكنولوجيا",
+  "sports": "رياضة",
+  "science": "علوم",
+  "entertainment": "ترفيه",
+  "health": "صحة"
+}

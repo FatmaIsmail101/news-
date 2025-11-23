@@ -1,0 +1,17 @@
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/3.0x/news_logo_light@3x.png
+  image_dark: assets/images/3.0x/news_logo@3x.png
+  color_dark: "#000000"
+  icon_background_color_dark: "#000000"
+  android: true
+  ios: true
+
+  android_12:
+    image: assets/images/3.0x/news_logo_light@3x.png
+    color: "#FFFFFF"
+    icon_background_color: "#000000"
+    image_dark: assets/images/3.0x/news_logo@3x.png
+    color_dark: "#000000"
+    icon_background_color_dark: "#000000"
