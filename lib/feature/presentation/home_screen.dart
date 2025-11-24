@@ -7,14 +7,14 @@ import '../../l10n/app_localizations.dart';
 import 'widget/drawer_widget/custom_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CategoryModel? categoryModel = null;
+  CategoryModel? categoryModel;
 
   @override
   Widget build(BuildContext context) {

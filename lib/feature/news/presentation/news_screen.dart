@@ -1,5 +1,9 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:news_app/core/notification/notification_bar.dart';
+import 'package:news_app/feature/news/presentation/widget/news.dart';
 import 'package:news_app/feature/sources/data/data_source/remote_data_source_imp.dart';
 import 'package:news_app/feature/sources/data/repo/source_repo_impl.dart';
 import 'package:news_app/feature/sources/presentation/view_model/provider/source_provider.dart';
@@ -10,7 +14,8 @@ import '../../sources/domain/usecase/source_usecase.dart';
 
 class NewsScreen extends StatelessWidget {
   final String catId;
-  const NewsScreen({super.key,required this.catId});
+ String sourceId="";
+   NewsScreen({super.key, required this.catId});
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +30,37 @@ class NewsScreen extends StatelessWidget {
 
         return cubit;
       },
-      child: BlocConsumer<SourceProvider, SourceState>
-        (builder: (context, state) {
-        if (state is SourceLoading) {
-          return Center(child: CircularProgressIndicator(),);
-        }
-        else if (state is SourceError) {
-          return Text("Not Found");
-        }
-        else if (state is SourceSuccess) {
-
-          return SourceWidget(model: state.sources,);
-        }
-        return Center(child: Text("Select a category"));
-      }, listener: (context, state) {
-        if (state is SourceError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message))
-          );
-        }
-      },),
+      child: BlocConsumer<SourceProvider, SourceState>(
+        builder: (context, state) {
+          if (state is SourceLoading) {
+            return Center(
+              child: Lottie.asset('assets/animation/Trail loading.json'),
+            );
+          } else if (state is SourceError) {
+            return Text("Not Found");
+          } else if (state is SourceSuccess) {
+            return Column(
+              children: [
+                SourceWidget(model: state.sources,onSelect: (value){
+                  sourceId=value;
+                },),
+                NewsWidget(sourceId:sourceId )
+              ],
+            );
+          }
+          return Center(child: Text("Select a category"));
+        },
+        listener: (context, state) {
+          if (state is SourceError) {
+            NotificationBar.showNotification(
+              message: "Something went wrong ",
+              type: ContentType.failure,
+              context: context,
+              icon: Icons.error_outline,
+            );
+          }
+        },
+      ),
     );
   }
 }

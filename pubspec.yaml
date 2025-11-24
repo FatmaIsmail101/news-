@@ -46,6 +46,8 @@ dependencies:
   intl: any
   flutter_secure_storage: ^9.2.4
   pretty_dio_logger: ^1.4.0
+  awesome_snackbar_content: ^0.1.8
+  lottie: ^3.3.2
 
 dev_dependencies:
   flutter_test:
@@ -110,4 +112,5 @@ flutter:
     - assets/icons/
     - assets/icons/2.0x/
     - assets/icons/3.0x/
+    - assets/animation/
 

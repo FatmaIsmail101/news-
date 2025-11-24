@@ -10,7 +10,7 @@ import '../../../../l10n/app_localizations.dart';
 import 'drawer_content_widget.dart';
 
 class CustomDrawer extends StatefulWidget {
-  CustomDrawer({Key? key,required this.onTap}) : super(key: key);
+  CustomDrawer({super.key,required this.onTap});
   VoidCallback? onTap;
 
   @override
