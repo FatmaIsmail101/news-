@@ -51,7 +51,7 @@ class CategoryModel {
         name: "Business",
         image: AppAssets.businessDark,
       ),
-      CategoryModel(id: "sport", name: "Sports", image: AppAssets.sportsDark),
+      CategoryModel(id: "sports", name: "Sports", image: AppAssets.sportsDark),
       CategoryModel(
         id: "technology",
         name: "Technology",

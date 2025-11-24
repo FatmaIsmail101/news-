@@ -4,27 +4,38 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/routes/route_name.dart';
 import 'package:news_app/core/routes/routes.dart';
 import 'package:news_app/feature/localization/localization_view_model.dart';
+import 'package:news_app/feature/sources/data/data_source/remote_data_source_imp.dart';
+import 'package:news_app/feature/sources/data/repo/source_repo_impl.dart';
+import 'package:news_app/feature/sources/domain/repo/repo.dart';
+import 'package:news_app/feature/sources/domain/usecase/source_usecase.dart';
+import 'package:news_app/feature/sources/presentation/view_model/provider/source_provider.dart';
 import 'package:news_app/feature/themeing/themeing.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:news_app/l10n/app_localizations.dart';
+import 'core/constants/services/api_constants.dart';
 
-void main() {
-  runApp(ScreenUtilInit(
-    designSize: const Size(393, 852),
-    minTextAdapt: true,
-    splitScreenMode: true,
-    child: MultiBlocProvider(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
+  await SecureStorageService.saveApiKey();
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(393, 852),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (_) => ThemeingViewModel()),
           BlocProvider(
-            create: (_) => ThemeingViewModel(),),
-          BlocProvider(
-            create: (_) => LangModel(),)
+            create: (_) => SourceProvider(
+              SourceUseCase(SourceRepoImpl(SourceDSRemoteImpl())),
+            ),
+          ),
+          BlocProvider(create: (_) => LangModel()),
         ],
 
-
-        child: MyApp()),
-  ),
+        child: MyApp(),
+      ),
+    ),
   );
 }
 
@@ -35,25 +46,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeingViewModel, ThemeMode>(
-        builder: (context, mode) {
-          return BlocBuilder<LangModel, String>(
-            builder: (context, state) {
-              return MaterialApp(
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                locale: state=="English"?Locale("en"):Locale("ar"),
-                debugShowCheckedModeBanner: false,
-                title: 'News App',
-                theme: ThemeData.light(),
-                themeMode: mode,
-                darkTheme: ThemeData.dark(),
-                initialRoute: RouteName.homeScreen,
-                onGenerateRoute: AppRouter.onGenerateRoute,
-              );
-            },
-          );
-        });
+      builder: (context, mode) {
+        return BlocBuilder<LangModel, String>(
+          builder: (context, state) {
+            return MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: state == "English" ? Locale("en") : Locale("ar"),
+              debugShowCheckedModeBanner: false,
+              title: 'News App',
+              theme: ThemeData.light(),
+              themeMode: mode,
+              darkTheme: ThemeData.dark(),
+              initialRoute: RouteName.homeScreen,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+            );
+          },
+        );
+      },
+    );
   }
 }
-
-

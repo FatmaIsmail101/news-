@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding:  EdgeInsets.all(16.0.w),
         child: categoryModel==null?HomeScreenCategory(onTap:(category){
           changeBody(category);
-        } ,):NewsScreen(),
+        } ,):NewsScreen(catId:categoryModel?.id??"" ,),
       ),
     );
   }
