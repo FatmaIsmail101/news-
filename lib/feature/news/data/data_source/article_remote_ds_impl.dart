@@ -18,6 +18,7 @@ class ArticleDSRemoteImpl implements ArticleDSRemote {
       ),
       queryParameters: {"sources": sourceId},
     );
+    print("DS ${response.data}");
     return ArticleModel.fromJson(response.data);
   }
 }

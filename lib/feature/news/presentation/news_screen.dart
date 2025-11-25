@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:news_app/core/notification/notification_bar.dart';
+import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart';
 import 'package:news_app/feature/news/presentation/widget/news.dart';
 import 'package:news_app/feature/sources/data/data_source/remote_data_source_imp.dart';
 import 'package:news_app/feature/sources/data/repo/source_repo_impl.dart';
@@ -14,8 +15,9 @@ import '../../sources/domain/usecase/source_usecase.dart';
 
 class NewsScreen extends StatelessWidget {
   final String catId;
- String sourceId="";
-   NewsScreen({super.key, required this.catId});
+  String sourceId = "";
+
+  NewsScreen({super.key, required this.catId});
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +43,13 @@ class NewsScreen extends StatelessWidget {
           } else if (state is SourceSuccess) {
             return Column(
               children: [
-                SourceWidget(model: state.sources,onSelect: (value){
-                  sourceId=value;
-                },),
-                NewsWidget(sourceId:sourceId )
+                SourceWidget(
+                  model: state.sources,
+                  onSelect: (value) {
+                    context.read<ArticleBloc>().getArticles(value);
+                  },
+                ),
+                NewsWidget(sourceId: sourceId),
               ],
             );
           }
