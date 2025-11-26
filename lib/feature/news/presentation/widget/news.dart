@@ -33,11 +33,14 @@ class NewsWidget extends StatelessWidget {
         } else if (state is ArticleSuccess) {
           List<Article> articles = state.model.articles ?? [];
 
-          return ListView.builder(
-            itemCount: state.model.articles?.length ?? 0,
-            itemBuilder: (context, index) {
-              return NewsItem(model: state.model.articles?[index] ?? Article());
-            },
+          return Expanded(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(height: 20,),
+              itemCount: state.model.articles?.length ?? 0,
+              itemBuilder: (context, index) {
+                return NewsItem(model: state.model.articles?[index] ?? Article());
+              },
+            ),
           );
         }
 

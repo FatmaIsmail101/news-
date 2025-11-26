@@ -27,7 +27,7 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   String sourceId = "";
-
+//final controller=TabController(length: s, vsync: vsync)
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -68,17 +68,11 @@ class _NewsScreenState extends State<NewsScreen> {
               return Column(
                 children: [
                   SourceWidget(
+                    //controller:TabController(length: state., vsync: vsync) ,
                     model: state.sources,
-                    onSelect: (value) {
-                      sourceId=value;
-                      setState(() {
 
-                      });
-                      final articleBloc =BlocProvider.of<ArticleBloc>(context,listen: false);
-                       articleBloc.getArticles(value);
-                    },
                   ),
-                  NewsWidget(sourceId: sourceId),
+                 // NewsWidget(sourceId: sourceId),
                 ],
               );
             }

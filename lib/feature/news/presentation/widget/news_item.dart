@@ -6,7 +6,7 @@ import 'package:news_app/feature/news/data/model/article_model.dart';
 
 class NewsItem extends StatelessWidget {
    NewsItem({super.key,required this.model});
-Article model;
+Article? model;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,21 +22,24 @@ Article model;
          ClipRRect(
            borderRadius: BorderRadius.circular(8),
            clipBehavior: Clip.antiAlias,
-           child: Image.network(model.urlToImage??""),
+           child: Image.network(model?.urlToImage??"",fit: BoxFit.fill,
+           width: double.infinity,),
          ),
-          Text(model.title??"",style: GoogleFonts.inter(
+          Text(model?.title??"",style: GoogleFonts.inter(
             fontWeight: FontWeight.bold,fontSize: 16,color: AppColor.mainColorDark
           ),),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text("By: ${model.author ?? ""}",style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w500,fontSize: 12,color: Color(0xffA0A0A0)
-              ),),
-              Text("By: ${model.publishedAt ?? ""}",style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w500,fontSize: 12,color: Color(0xffA0A0A0)
-              ),),
-            ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text("By: ${model?.author ?? ""}",style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
+                ),),
+                Text("By: ${model?.publishedAt?.substring(0,10) ?? ""}",style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
+                ),),
+              ],
+            ),
           ),
         ],
       ),

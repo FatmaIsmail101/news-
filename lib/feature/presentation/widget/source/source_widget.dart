@@ -1,39 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart';
 import 'package:news_app/feature/sources/data/model/source_model.dart';
 
-class SourceWidget extends StatelessWidget {
-  const SourceWidget({super.key, required this.model, required this.onSelect});
+import '../../../news/presentation/widget/news.dart';
 
+class SourceWidget extends StatefulWidget {
+  SourceWidget({super.key, required this.model,
+    //this.controller,
+  });
+//final controller;
   final SourceModel model;
-  final Function(String id) onSelect;
 
   @override
+  State<SourceWidget> createState() => _SourceWidgetState();
+}
+
+class _SourceWidgetState extends State<SourceWidget> {
+  //final Function(String id) onSelect;
+  int currentIndex=0;
+  @override
   Widget build(BuildContext context) {
-    int? index = model.sources?.indexWhere((s) => s.id == "buzzfeed");
-    if (model.sources == null || model.sources!.isEmpty) {
+    print("current Index $currentIndex");
+    //  int? index = model.sources?.indexWhere((s) => s.id );
+    if (widget.model.sources == null || widget.model.sources!.isEmpty) {
       return Center(child: Text("No sources found"));
     }
-    return DefaultTabController(
-      // initialIndex: index??0,
-      length: model.sources!.length,
-      child: TabBar(
-        labelStyle: TextStyle(color: Colors.black),
-        labelColor: Colors.black,
-        onTap: (value) {
-          final selected = model.sources![value];
-          if (selected.id != null && selected.id!.isNotEmpty) {
-            onSelect(selected.id!);
-          }
-        }
-        ,
-        isScrollable: true,
-        tabAlignment: TabAlignment.start,
-        padding: EdgeInsets.zero,
-        unselectedLabelColor: Colors.black,
-        dividerColor: Colors.transparent,
-        indicatorColor: Colors.black,
-        tabs: model.sources?.map((e) => Tab(text: e.name ?? "")).toList() ?? [],
-      ),
+    // sourceId=widget.model.sources?.first.id;
+    return Column(
+      children: [
+        DefaultTabController(
+
+          initialIndex: currentIndex,
+          length: widget.model.sources!.length,
+          child: TabBar(
+            // controller:controller ,
+            labelStyle: TextStyle(color: Colors.black),
+            labelColor: Colors.black,
+            onTap: (value) {
+              currentIndex=value;
+              // final selected = widget.model.sources![value];
+              // if (selected.id != null && selected.id!.isNotEmpty) {
+              //   sourceId=widget.model.sources!.indexWhere((s) => s.id==selected.id ).toString();
+              //
+              //   onSelect(model.sources!.indexWhere((s) => s.id==selected.id ).toString());
+              setState(() {
+
+              });
+            final id=widget.model.sources?[value].id;
+            context.read<ArticleBloc>().getArticles(id??"abc-news");
+            }
+            ,
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            padding: EdgeInsets.zero,
+            unselectedLabelColor: Colors.black,
+            dividerColor: Colors.transparent,
+            indicatorColor: Colors.black,
+            tabs: widget.model.sources?.map((e) => Tab(text: e.name ?? "")).toList() ?? [],
+          ),
+        ),
+        NewsWidget(sourceId: widget.model.sources?[currentIndex].id??"",),
+      ],
     );
   }
 }
