@@ -67,10 +67,12 @@ class _NewsScreenState extends State<NewsScreen> {
 
               return Column(
                 children: [
-                  SourceWidget(
-                    //controller:TabController(length: state., vsync: vsync) ,
-                    model: state.sources,
+                  Expanded(
+                    child: SourceWidget(
+                      //controller:TabController(length: state., vsync: vsync) ,
+                      model: state.sources,
 
+                    ),
                   ),
                  // NewsWidget(sourceId: sourceId),
                 ],

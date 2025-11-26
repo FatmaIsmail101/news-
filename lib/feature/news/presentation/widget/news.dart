@@ -22,30 +22,32 @@ class NewsWidget extends StatelessWidget {
     if (sourceId.isEmpty) {
       return Center(child: Text("Select a News"));
     }
-    return BlocBuilder<ArticleBloc,ArticleState>(
-      builder: (context, state) {
-        if (state is ArticleLoading) {
-          return Center(
-            child: Lottie.asset('assets/animation/Trail loading.json'),
-          );
-        } else if (state is ArticleError) {
-          return Center(child: Text("Select a News"));
-        } else if (state is ArticleSuccess) {
-          List<Article> articles = state.model.articles ?? [];
+    return Expanded(
+      child: BlocBuilder<ArticleBloc, ArticleState>(
+        builder: (context, state) {
+          if (state is ArticleLoading) {
+            return Center(
+              child: Lottie.asset('assets/animation/Trail loading.json'),
+            );
+          } else if (state is ArticleError) {
+            return Center(child: Text("Select a News"));
+          } else if (state is ArticleSuccess) {
+            List<Article> articles = state.model.articles ?? [];
 
-          return Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(height: 20,),
-              itemCount: state.model.articles?.length ?? 0,
+            return ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(height: 20),
+              itemCount: articles.length ,
               itemBuilder: (context, index) {
-                return NewsItem(model: state.model.articles?[index] ?? Article());
+                return NewsItem(
+                  model: articles[index],
+                );
               },
-            ),
-          );
-        }
+            );
+          }
 
-        return SizedBox.shrink();
-      },
+          return SizedBox.shrink();
+        },
+      ),
     );
   }
 }

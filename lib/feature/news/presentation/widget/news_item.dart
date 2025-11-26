@@ -11,7 +11,7 @@ Article? model;
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8.w),
-      width: double.infinity,height: 340.h,
+      width: double.infinity,height: 400.h,
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.mainColorDark),
         borderRadius: BorderRadius.circular(16.w)
@@ -32,10 +32,10 @@ Article? model;
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("By: ${model?.author ?? ""}",style: GoogleFonts.inter(
+                Text("By: ${model?.author?.substring(0,6) ?? ""}",style: GoogleFonts.inter(
                     fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
                 ),),
-                Text("By: ${model?.publishedAt?.substring(0,10) ?? ""}",style: GoogleFonts.inter(
+                Text("By: ${model?.publishedAt?.substring(0,6) ?? ""}",style: GoogleFonts.inter(
                     fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
                 ),),
               ],
