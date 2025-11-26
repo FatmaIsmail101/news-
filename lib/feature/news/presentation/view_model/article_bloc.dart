@@ -11,6 +11,9 @@ class ArticleBloc extends Cubit<ArticleState>{
       final article=await useCase.getArticle(sourceId);
       emit(ArticleSuccess(article));
     }catch(e){
+      print("STATE ERROR => ${e.toString()}");
+      print("SOURCE ID => $sourceId");
+
       emit(ArticleError(e.toString()));
       print(e.toString());
     }

@@ -12,55 +12,37 @@ import '../../../../core/notification/notification_bar.dart';
 import '../../data/model/article_model.dart';
 import 'news_item.dart';
 
-class NewsWidget extends StatelessWidget{
+class NewsWidget extends StatelessWidget {
   final String sourceId;
+
   NewsWidget({required this.sourceId});
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) {
-      final remoteDS = ArticleDSRemoteImpl();
-      final repo = ArticleRepoImpl(remoteDS);
-      final useCase = ArticleUseCase(repo);
-      final cubit = ArticleBloc(useCase);
-
-      cubit.getArticles(sourceId); // <--- هنا بنادي fetch مباشرة بعد الإنشاء
-
-      return cubit;
-    },child: BlocConsumer<ArticleBloc,ArticleState>(
-      builder: (context,state) {
+    if (sourceId.isEmpty) {
+      return Center(child: Text("Select a News"));
+    }
+    return BlocBuilder<ArticleBloc,ArticleState>(
+      builder: (context, state) {
         if (state is ArticleLoading) {
           return Center(
             child: Lottie.asset('assets/animation/Trail loading.json'),
           );
-        }
-        else if (state is ArticleError) {
+        } else if (state is ArticleError) {
           return Center(child: Text("Select a News"));
-        }
-        else if(state is ArticleSuccess){
+        } else if (state is ArticleSuccess) {
           List<Article> articles = state.model.articles ?? [];
 
           return ListView.builder(
-            itemCount: articles.length,
+            itemCount: state.model.articles?.length ?? 0,
             itemBuilder: (context, index) {
-              return NewsItem(model: articles[index]);
+              return NewsItem(model: state.model.articles?[index] ?? Article());
             },
           );
         }
 
-      return Text("data");
-        },
-        listener:
-        (context, state) {
-    if (state is ArticleError) {
-    NotificationBar.showNotification(
-    message: "Something went wrong ",
-    type: ContentType.failure,
-    context: context,
-    icon: Icons.error_outline,
-    );
-    }
-      })
+        return SizedBox.shrink();
+      },
     );
   }
-
 }

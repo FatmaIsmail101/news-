@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 abstract class ApiConstants{
   static const String baseUrl="https://newsapi.org";
   static const String sourceEndPoint="https://newsapi.org/v2/top-headlines/sources";
-  static const String newsEndPoint="https://newsapi.org/v2/top-headlines";
+  static const String newsEndPoint="https://newsapi.org/v2/everything";
 
 }
 class SecureStorageService {

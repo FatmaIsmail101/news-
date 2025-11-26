@@ -5,8 +5,9 @@ import 'package:news_app/feature/sources/data/model/source_model.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class SourceDSRemoteImpl implements SourceDSRemote {
-  Dio dio = Dio()
-    ..interceptors.add(PrettyDioLogger(request: true, requestBody: true));
+  Dio dio = Dio();
+    // ..interceptors.add(PrettyDioLogger(request: false
+    //     , requestBody: false));
 
   @override
   Future<SourceModel> getSourcesResponses(String catId) async {
@@ -19,8 +20,8 @@ class SourceDSRemoteImpl implements SourceDSRemote {
         headers: {"X-Api-Key": "8dd6e3411eba4da6b55188bc949ae1ab"},
       ),
     );
-    print("DS ${response.data.runtimeType}"); // type
-    print(response.data);
+    // print("DS ${response.data.runtimeType}"); // type
+    // print(response.data);
     //  final jsonData = json.decode(response.data);
     return SourceModel.fromJson(response.data);
   }
