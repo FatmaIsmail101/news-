@@ -4,6 +4,7 @@ import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart'
 import 'package:news_app/feature/sources/data/model/source_model.dart';
 
 import '../../../news/presentation/widget/news.dart';
+import '../../../sources/presentation/view_model/provider/source_provider.dart';
 
 class SourceWidget extends StatefulWidget {
   SourceWidget({super.key, required this.model,

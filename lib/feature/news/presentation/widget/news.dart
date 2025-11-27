@@ -7,6 +7,7 @@ import 'package:news_app/feature/news/data/repo/article_repo_impl.dart';
 import 'package:news_app/feature/news/domain/usecase/article_use_case.dart';
 import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart';
 import 'package:news_app/feature/news/presentation/view_model/state.dart';
+import 'package:news_app/feature/news/presentation/widget/news_bottom_sheet.dart';
 
 import '../../../../core/notification/notification_bar.dart';
 import '../../data/model/article_model.dart';
@@ -36,10 +37,15 @@ class NewsWidget extends StatelessWidget {
 
             return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 20),
-              itemCount: articles.length ,
+              itemCount: articles.length,
               itemBuilder: (context, index) {
-                return NewsItem(
-                  model: articles[index],
+                return GestureDetector(
+                  onLongPress: () {
+                 bottomSheet(context,articles[index]);
+                  },
+                  child: NewsItem(
+                    model: articles[index],
+                  ),
                 );
               },
             );
@@ -49,5 +55,10 @@ class NewsWidget extends StatelessWidget {
         },
       ),
     );
+  }
+
+  bottomSheet(BuildContext context,Article article) {
+    return showModalBottomSheet(
+      context: context, builder: (context) => NewsBottomSheet(articleModel: article,),);
   }
 }
