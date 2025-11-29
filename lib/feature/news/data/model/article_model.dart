@@ -12,6 +12,7 @@ class ArticleModel {
 
   ArticleModel({this.status, this.totalResults, this.articles});
 
+
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
       status: json["status"],
