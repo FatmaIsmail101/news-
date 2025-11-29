@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/feature/news/data/model/article_model.dart';
+import 'package:news_app/feature/themeing/themeing.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/color.dart';
 
@@ -12,6 +14,9 @@ class NewsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theming=Theme.of(context);
+final theme=context.watch<ThemeingViewModel>().getTheme();
+
     String fullText = articleModel.description ?? "";
     int maxLength = 100;
 
@@ -49,11 +54,7 @@ class NewsBottomSheet extends StatelessWidget {
                 ),
                 Text(
                   preview,
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: AppColor.mainColorDark,
-                  ),
+                  style: theming.textTheme.bodyMedium,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -64,7 +65,7 @@ class NewsBottomSheet extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.mainColorDark,
+                    backgroundColor:theme==ThemeMode.light? AppColor.mainColorLight:AppColor.mainColorDark,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.w),
                     ),
@@ -72,11 +73,7 @@ class NewsBottomSheet extends StatelessWidget {
                   ),
                   child: Text(
                     "View Full Article",
-                    style: GoogleFonts.inter(
-                      color: AppColor.mainColorLight,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    style: theming.textTheme.bodyLarge,
                   ),
                 ),
               ],

@@ -37,6 +37,8 @@ class _SourceWidgetState extends State<SourceWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final themeing=Theme.of(context);
+
     print("current Index $currentIndex");
     //  int? index = model.sources?.indexWhere((s) => s.id );
     if (widget.model.sources == null || widget.model.sources!.isEmpty) {
@@ -50,7 +52,7 @@ class _SourceWidgetState extends State<SourceWidget> {
           length: widget.model.sources!.length,
           child: TabBar(
             // controller:controller ,
-            labelStyle: const TextStyle(color: Colors.black),
+            labelStyle:  themeing.textTheme.bodyLarge,
             labelColor: Colors.black,
             onTap: (value) {
               currentIndex = value;

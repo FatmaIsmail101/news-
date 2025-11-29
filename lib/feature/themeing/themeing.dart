@@ -8,19 +8,22 @@ class ThemeingViewModel extends Cubit<ThemeMode> {
   }
 
   void toggleTheme(String theme) {
-    if(state==theme)return;
+    if((state==ThemeMode.light&&theme=="Light")||
+        (state==ThemeMode.dark&&theme=="Dark"))return;
     if(theme=="Light"){
       emit(ThemeMode.light);
-      CacheHelper.saveTheme(ThemeMode.light);
+      CacheHelper.saveTheme("Light");
     }
     else{
       emit(ThemeMode.dark);
-      CacheHelper.saveTheme(ThemeMode.dark);
+      CacheHelper.saveTheme("Dark");
 
     }
   }
   Future<void> getTheme()async{
     var theme=await CacheHelper.getTheme();
-    emit(theme);
+
+      emit(theme=="Dark"?ThemeMode.dark:ThemeMode.light);
+
   }
 }

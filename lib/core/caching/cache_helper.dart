@@ -64,20 +64,20 @@ class CacheHelper {
   }
 
   //Theming
-  static Future<Box<ThemeMode>> openThemeBox() async {
+  static Future<Box<String>> openThemeBox() async {
     if (!Hive.isBoxOpen(themeBox)) {
-      return Hive.openBox<ThemeMode>(themeBox);
+      return Hive.openBox<String>(themeBox);
     }
-    return Hive.openBox<ThemeMode>(themeBox);
+    return Hive.openBox<String>(themeBox);
   }
 
-  static Future<void> saveTheme(ThemeMode mode) async {
+  static Future<void> saveTheme(String mode) async {
     var box = await openThemeBox();
     box.put("theme", mode);
   }
-  static Future<ThemeMode>getTheme()async{
+  static Future<String>getTheme()async{
     var box=await openThemeBox();
-   ThemeMode? mode= box.get("theme");
-   return mode??ThemeMode.light;
+   String? mode= box.get("theme");
+   return mode??"Light";
   }
 }

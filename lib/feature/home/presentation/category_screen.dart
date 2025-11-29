@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/feature/home/presentation/widget/category/category.dart';
+import 'package:news_app/feature/themeing/theme_app.dart';
 import '../../../core/constants/color.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../themeing/themeing.dart';
@@ -19,34 +20,26 @@ class HomeScreenCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = AppLocalizations.of(context);
-    final theme = context.watch<ThemeingViewModel>().toggleTheme;
-    final currentTheme = theme == "Light" ? categoriesList : categoriesListDark;
-
+    final theme = context.watch<ThemeingViewModel>().getTheme();
+    final currentTheme = theme == ThemeMode.dark ? categoriesListDark : categoriesList;
+    final themeing=Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           lang?.goodMorning ?? "",
-          style: GoogleFonts.inter(
-            fontSize: 24.w,
-            fontWeight: FontWeight.w500,
-            color: AppColor.mainColorDark,
-          ),
+          style: themeing.textTheme.headlineLarge,
         ),
         Text(
           lang?.newsIntro ?? "",
-          style: GoogleFonts.inter(
-            fontSize: 24.w,
-            fontWeight: FontWeight.w500,
-            color: AppColor.mainColorDark,
-          ),
+          style: themeing.textTheme.headlineLarge,
         ),
 
         Expanded(
           child: ListView.separated(
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () => onTap(categoriesList[index]),
+                onTap: () => onTap(currentTheme[index]),
                 child: CategoryWidget(index: index, model: currentTheme[index]),
               );
             },
