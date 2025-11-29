@@ -6,7 +6,7 @@ import 'package:news_app/core/assets/assets.dart';
 import 'package:news_app/core/constants/color.dart';
 import 'package:news_app/feature/localization/localization_view_model.dart';
 import 'package:news_app/feature/themeing/themeing.dart';
-import '../../../../l10n/app_localizations.dart';
+import '../../../../../l10n/app_localizations.dart';
 import 'drawer_content_widget.dart';
 
 class CustomDrawer extends StatefulWidget {

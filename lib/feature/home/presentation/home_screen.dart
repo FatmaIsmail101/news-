@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/feature/home/data/model/category_model.dart';
 import 'package:news_app/feature/news/presentation/news_screen.dart';
-import 'package:news_app/feature/presentation/home_screen1.dart';
-import 'package:news_app/feature/presentation/widget/source/source_widget.dart';
-import '../../l10n/app_localizations.dart';
-import '../news/data/model/article_model.dart';
-import '../news/presentation/full_article.dart';
+import '../../../l10n/app_localizations.dart';
+import 'category_screen.dart';
 import 'widget/drawer_widget/custom_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,18 +28,16 @@ class HomeScreenState extends State<HomeScreen> {
         actions: [Icon(Icons.search)],
       ),
       drawer: CustomDrawer(onTap: () => home()),
-      body:  Padding(
-    padding: EdgeInsets.all(16.0.w),
-    child: currentWidget ??
-    (categoryModel == null
-    ? HomeScreenCategory(
-    onTap: (category) {
-    changeBody(category);
-    },
-    )
-        : NewsScreen(catId: categoryModel?.id ?? "")),
-    ),
-
+      body: Padding(
+        padding: EdgeInsets.all(16.0.w),
+        child: categoryModel == null
+            ? HomeScreenCategory(
+                onTap: (category) {
+                  changeBody(category);
+                },
+              )
+            : NewsScreen(catId: categoryModel?.id ?? ""),
+      ),
     );
   }
 
@@ -56,12 +51,4 @@ class HomeScreenState extends State<HomeScreen> {
     setState(() {});
     Navigator.pop(context);
   }
-  void showFullArticle(Article article) {
-    setState(() {
-      currentWidget = FullArticleWidget( articleModel: article,);
-      print(currentWidget);
-    });
-    Navigator.pop(context); // يقفل البوتوم شيت
-  }
-
 }

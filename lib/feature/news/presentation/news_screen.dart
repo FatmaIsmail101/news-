@@ -7,19 +7,17 @@ import 'package:news_app/feature/news/data/data_source/article_remote_ds_impl.da
 import 'package:news_app/feature/news/data/repo/article_repo_impl.dart';
 import 'package:news_app/feature/news/domain/usecase/article_use_case.dart';
 import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart';
-import 'package:news_app/feature/news/presentation/widget/news.dart';
 import 'package:news_app/feature/sources/data/data_source/remote_data_source_imp.dart';
 import 'package:news_app/feature/sources/data/repo/source_repo_impl.dart';
 import 'package:news_app/feature/sources/presentation/view_model/provider/source_provider.dart';
 import 'package:news_app/feature/sources/presentation/view_model/state.dart';
-
-import '../../presentation/widget/source/source_widget.dart';
 import '../../sources/domain/usecase/source_usecase.dart';
+import '../../sources/presentation/view/widgets/source/source_widget.dart';
 
 class NewsScreen extends StatefulWidget {
   final String catId;
 
-  NewsScreen({super.key, required this.catId});
+  const NewsScreen({super.key, required this.catId});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();

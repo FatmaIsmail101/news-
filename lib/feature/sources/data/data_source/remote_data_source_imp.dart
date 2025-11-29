@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:news_app/core/caching/cache_helper.dart';
 import 'package:news_app/core/constants/services/api_constants.dart';
 import 'package:news_app/feature/sources/data/data_source/remote_data_source.dart';
 import 'package:news_app/feature/sources/data/model/source_model.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class SourceDSRemoteImpl implements SourceDSRemote {
   Dio dio = Dio();
@@ -20,9 +20,17 @@ class SourceDSRemoteImpl implements SourceDSRemote {
         headers: {"X-Api-Key": "8dd6e3411eba4da6b55188bc949ae1ab"},
       ),
     );
+    SourceModel sourceModel=SourceModel.fromJson(response.data);
+    CacheHelper.saveSourceResponse(catId,sourceModel);
     // print("DS ${response.data.runtimeType}"); // type
     // print(response.data);
     //  final jsonData = json.decode(response.data);
-    return SourceModel.fromJson(response.data);
+    return sourceModel;
+  }
+
+  @override
+  Future<SourceModel> cacheSourcesResponses(String catId) {
+    var cache=CacheHelper.getSourceResponse(catId);
+    return cache;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:news_app/core/constants/services/api_constants.dart';
 import 'package:news_app/core/constants/services/interceptor.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 

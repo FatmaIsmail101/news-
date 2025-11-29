@@ -2,15 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:news_app/feature/news/domain/usecase/article_use_case.dart';
 import 'package:news_app/feature/news/presentation/view_model/state.dart';
 
-class ArticleBloc extends Cubit<ArticleState>{
+class ArticleBloc extends Cubit<ArticleState> {
   ArticleUseCase useCase;
-  ArticleBloc(this.useCase):super(ArticleInit());
-  Future<void>getArticles(String sourceId)async{
-    try{
+
+  ArticleBloc(this.useCase) : super(ArticleInit());
+
+  Future<void> getArticles(String sourceId) async {
+    try {
       emit(ArticleLoading());
-      final article=await useCase.getArticle(sourceId);
+      final article = await useCase.getArticle(sourceId);
       emit(ArticleSuccess(article));
-    }catch(e){
+    } catch (e) {
       print("STATE ERROR => ${e.toString()}");
       print("SOURCE ID => $sourceId");
 

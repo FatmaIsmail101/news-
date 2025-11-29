@@ -14,7 +14,8 @@ class ArticleRepoImpl implements ArticleRepo {
       var articleResponse = await dsRemote.getArticle(sourceId);
       return articleResponse;
     } catch (e) {
-      throw Exception("Failed to load sources: $e");
+      final cache= await dsRemote.cacheArticle(sourceId);
+      return cache;
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:news_app/core/caching/cache_helper.dart';
 import 'package:news_app/core/constants/services/api_constants.dart';
 import 'package:news_app/feature/news/data/model/article_model.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
@@ -27,6 +27,14 @@ class ArticleDSRemoteImpl implements ArticleDSRemote {
       queryParameters: {"sources": sourceId},
     );
     print("DS ${response.data}");
-    return ArticleModel.fromJson(response.data);
+    ArticleModel articleModel= ArticleModel.fromJson(response.data);
+ CacheHelper.saveNewsResponse(sourceId,articleModel);
+ return articleModel;
+  }
+
+  @override
+  Future<ArticleModel> cacheArticle(String sourceId) {
+    var cached=CacheHelper.getNewsResponse(sourceId);
+    return cached;
   }
 }

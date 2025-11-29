@@ -32,10 +32,10 @@ Article? model;
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("By: ${model?.author?.substring(0,6) ?? ""}",style: GoogleFonts.inter(
+                Text("By: ${model?.author?? ""}",style: GoogleFonts.inter(
                     fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
-                ),),
-                Text("By: ${model?.publishedAt?.substring(0,6) ?? ""}",style: GoogleFonts.inter(
+                ),softWrap: true,),
+                Text("By: ${model?.publishedAt ?? ""}",style: GoogleFonts.inter(
                     fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
                 ),softWrap: true,),
               ],
