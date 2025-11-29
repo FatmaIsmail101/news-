@@ -18,12 +18,26 @@ class _SearchScreenState extends State<SearchScreen> {
   List <Article>articles=[];
   int currentPage=0;
   String?errorMessage="";
+  ScrollController scrollController=ScrollController();
   int maxResult=0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    scrollController.addListener(() {
+      if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
+        if(searchController.text.isNotEmpty&&(maxResult>articles.length)){
+          _search();
+        }
+      }
+    },);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.mainColorLight,
       body: CustomScrollView(
+        controller: scrollController,
 
         slivers: [
           SliverAppBar(
@@ -41,7 +55,11 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: InputDecoration(
                 hintText: "Search",
                 prefixIcon: const Icon(Icons.search,color: AppColor.mainColorDark,),
-                suffixIcon: const Icon(Icons.close,color: AppColor.mainColorDark,),
+                suffixIcon:  InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.close,color: AppColor.mainColorDark,)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide(color: AppColor.mainColorDark)
@@ -67,17 +85,25 @@ class _SearchScreenState extends State<SearchScreen> {
                 horizontal: 16,vertical: 16
               ),
               sliver: SliverList.separated(
-                itemCount: articles.length,
+                itemCount: articles.length<maxResult?articles.length+1:articles.length,
                 separatorBuilder: (context, index) => SizedBox(
                 height: 16,
-              ),itemBuilder: (context, index) => InkWell(
-                  onTap: (){
-                    launchUrl(
-                      Uri.parse(articles[index].url ?? ""),
-                      mode: LaunchMode.inAppWebView,
-                    );
-                  },
-                  child: NewsItem(model: articles[index])),),
+              ),itemBuilder: (context, index) {
+                if(index==articles.length){
+                  return Center(child: CircularProgressIndicator(),);
+                }else{
+                  return InkWell(
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(articles[index].url ?? ""),
+                          mode: LaunchMode.inAppWebView,
+                        );
+                      },
+                      child: NewsItem(model: articles[index]));
+                }
+
+
+              }),
             )
         ],
       ),
@@ -89,8 +115,11 @@ class _SearchScreenState extends State<SearchScreen> {
     errorMessage='';
     try{
       var response=await apiManager.getArticle(searchQuerry: searchController.text, pageNumber: currentPage);
-      articles=response.articles??[];
+      //articles=response.articles??[];
+      articles.addAll(response.articles??[]);
       maxResult=response.totalResults??0;
+      currentPage++;
+      print(currentPage);
     }
     catch(e){
       errorMessage=e.toString();
