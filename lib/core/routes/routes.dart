@@ -6,7 +6,7 @@ class AppRouter{
   static Route<dynamic>? onGenerateRoute(RouteSettings setting){
     switch(setting.name){
       case RouteName.homeScreen:
-        return MaterialPageRoute(builder: (context) => HomeScreen(),);
+        return MaterialPageRoute(builder: (context) => const HomeScreen(),);
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

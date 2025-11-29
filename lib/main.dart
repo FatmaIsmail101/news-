@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/core/routes/route_name.dart';
 import 'package:news_app/core/routes/routes.dart';
@@ -50,7 +49,7 @@ void main() async {
           BlocProvider(create: (_) => LangModel()),
         ],
 
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );
@@ -69,7 +68,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
-              locale: state == "English" ? Locale("en") : Locale("ar"),
+              locale: state == "English" ? const Locale("en") : const Locale("ar"),
               debugShowCheckedModeBanner: false,
               title: 'News App',
               theme: ThemeData.light(),

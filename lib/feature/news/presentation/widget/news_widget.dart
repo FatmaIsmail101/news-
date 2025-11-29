@@ -16,7 +16,7 @@ class NewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (sourceId.isEmpty) {
-      return Center(child: Text("Select a News"));
+      return const Center(child: Text("Select a News"));
     }
     return Expanded(
       child: BlocBuilder<ArticleBloc, ArticleState>(
@@ -26,12 +26,12 @@ class NewsWidget extends StatelessWidget {
               child: Lottie.asset('assets/animation/Trail loading.json'),
             );
           } else if (state is ArticleError) {
-            return Center(child: Text("Select a News"));
+            return const Center(child: Text("Select a News"));
           } else if (state is ArticleSuccess) {
             List<Article> articles = state.model.articles ?? [];
 
             return ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(height: 20),
+              separatorBuilder: (context, index) => const SizedBox(height: 20),
               itemCount: articles.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
@@ -46,14 +46,16 @@ class NewsWidget extends StatelessWidget {
             );
           }
 
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         },
       ),
     );
   }
 
-  bottomSheet(BuildContext context,Article article) {
+ Future<dynamic> bottomSheet(BuildContext context,Article article) {
     return showModalBottomSheet(
+      backgroundColor: Colors.transparent,isScrollControlled: true,isDismissible: true,
+      enableDrag: true,
       context: context, builder: (context) => NewsBottomSheet(articleModel: article,),);
   }
 }

@@ -10,8 +10,8 @@ import '../../../../../l10n/app_localizations.dart';
 import 'drawer_content_widget.dart';
 
 class CustomDrawer extends StatefulWidget {
-  CustomDrawer({super.key,required this.onTap});
-  VoidCallback? onTap;
+  const CustomDrawer({super.key,required this.onTap});
+ final VoidCallback? onTap;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -56,7 +56,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   name: lang?.goToHome ?? "",
                 ),
               ),
-              Divider(),
+              const Divider(),
               DrawerContentWidget(
                 image: AppAssets.themeIcon,
                 name: lang?.theme ?? "",
@@ -90,7 +90,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     );
                   }).toList(),
                   borderRadius: BorderRadius.circular(16.w),
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                   iconSize: 30.w,
                   iconEnabledColor: AppColor.mainColorLight,
 
@@ -105,7 +105,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   },
                 ),
               ),
-              Divider(),
+              const Divider(),
               DrawerContentWidget(
                 image: AppAssets.languageIcon,
                 name: lang?.language ?? "",
@@ -150,7 +150,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       );
                     });
                   },
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                 ),
               ),
             ],

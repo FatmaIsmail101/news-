@@ -25,7 +25,7 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(categoryModel?.name ?? lang?.home ?? ""),
         centerTitle: true,
-        actions: [Icon(Icons.search)],
+        actions: const [Icon(Icons.search)],
       ),
       drawer: CustomDrawer(onTap: () => home()),
       body: Padding(

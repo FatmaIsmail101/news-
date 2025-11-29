@@ -21,7 +21,7 @@ class CacheHelper {
 
   static Future<SourceModel> getSourceResponse(String catId) async {
     var box = await _openBox();
-    SourceModel? sourceModel = await box.get(catId);
+    SourceModel? sourceModel = box.get(catId);
     return sourceModel ?? SourceModel();
   }
 
@@ -47,7 +47,7 @@ class CacheHelper {
 
   static Future<ArticleModel> getNewsResponse(String sourceId) async {
     var box = await _openNewsBox();
-    ArticleModel? articleModel = await box.get(sourceId);
+    ArticleModel? articleModel = box.get(sourceId);
     return articleModel ?? ArticleModel();
   }
 

@@ -6,7 +6,7 @@ abstract class ApiConstants{
 
 }
 class SecureStorageService {
-  static final _storage = FlutterSecureStorage();
+  static const _storage = FlutterSecureStorage();
 
   static Future<void> saveApiKey() async {
     String? apiKey = await _storage.read(key: "8dd6e3411eba4da6b55188bc949ae1ab");

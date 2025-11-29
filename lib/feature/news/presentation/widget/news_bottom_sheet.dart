@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/feature/news/data/model/article_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constants/color.dart';
 
 class NewsBottomSheet extends StatelessWidget {
-  NewsBottomSheet({super.key, required this.articleModel});
+  const NewsBottomSheet({super.key, required this.articleModel});
 
-  Article articleModel;
+  final Article articleModel;
 
   @override
   Widget build(BuildContext context) {
@@ -18,58 +19,71 @@ class NewsBottomSheet extends StatelessWidget {
         ? "${fullText.substring(0, maxLength)}... [+${fullText.length - maxLength} chars]"
         : fullText;
 
-    return Container(
-      padding: EdgeInsets.all(8.w),
-      width: double.infinity,
-      height: 400.h,
-      decoration: BoxDecoration(
-        //   border: Border.all(color: AppColor.mainColorDark),
-        borderRadius: BorderRadius.circular(16.w),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 10.h,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              clipBehavior: Clip.antiAlias,
-              child:
-                  articleModel.urlToImage != null &&
-                      articleModel.urlToImage!.isNotEmpty
-                  ? Image.network(articleModel.urlToImage ?? "")
-                  : Image.asset('assets/images/placeholder.png'),
-            ),
-            Text(
-              preview,
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: AppColor.mainColorDark,
-              ),
-            ),
-
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColor.mainColorDark,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.w),
+          margin: EdgeInsets.symmetric(vertical: 16.h),
+          width: double.infinity,
+          height: 400.h,
+          decoration: BoxDecoration(
+            color: AppColor.mainColorLight,
+            //   border: Border.all(color: AppColor.mainColorDark),
+            borderRadius: BorderRadius.circular(16.w),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 10.h,
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.w),
+                  clipBehavior: Clip.antiAlias,
+                  child:
+                      articleModel.urlToImage != null &&
+                          articleModel.urlToImage!.isNotEmpty
+                      ? Image.network(articleModel.urlToImage ?? "")
+                      : Image.asset('assets/images/placeholder.png'),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                "View Full Article",
-                style: GoogleFonts.inter(
-                  color: AppColor.mainColorLight,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                Text(
+                  preview,
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: AppColor.mainColorDark,
+                  ),
                 ),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    launchUrl(
+                      Uri.parse(articleModel.url ?? ""),
+                      mode: LaunchMode.inAppWebView,
+                    );
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.mainColorDark,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.w),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                  ),
+                  child: Text(
+                    "View Full Article",
+                    style: GoogleFonts.inter(
+                      color: AppColor.mainColorLight,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

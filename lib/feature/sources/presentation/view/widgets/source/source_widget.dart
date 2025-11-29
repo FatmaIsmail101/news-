@@ -40,7 +40,7 @@ class _SourceWidgetState extends State<SourceWidget> {
     print("current Index $currentIndex");
     //  int? index = model.sources?.indexWhere((s) => s.id );
     if (widget.model.sources == null || widget.model.sources!.isEmpty) {
-      return Center(child: Text("No sources found"));
+      return const Center(child: Text("No sources found"));
     }
     // sourceId=widget.model.sources?.first.id;
     return Column(
@@ -50,7 +50,7 @@ class _SourceWidgetState extends State<SourceWidget> {
           length: widget.model.sources!.length,
           child: TabBar(
             // controller:controller ,
-            labelStyle: TextStyle(color: Colors.black),
+            labelStyle: const TextStyle(color: Colors.black),
             labelColor: Colors.black,
             onTap: (value) {
               currentIndex = value;

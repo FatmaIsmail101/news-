@@ -29,14 +29,14 @@ Article? model;
             fontWeight: FontWeight.bold,fontSize: 16,color: AppColor.mainColorDark
           ),),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
               children: <Widget>[
                 Text("By: ${model?.author?? ""}",style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
+                    fontWeight: FontWeight.w200,fontSize: 12,color: const Color(0xffA0A0A0)
                 ),softWrap: true,),
                 Text("By: ${model?.publishedAt ?? ""}",style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w200,fontSize: 12,color: Color(0xffA0A0A0)
+                    fontWeight: FontWeight.w200,fontSize: 12,color: const Color(0xffA0A0A0)
                 ),softWrap: true,),
               ],
             ),

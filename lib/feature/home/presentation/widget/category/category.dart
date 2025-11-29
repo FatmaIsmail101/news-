@@ -32,7 +32,7 @@ clipBehavior: Clip.antiAlias,
                 ? Alignment.centerRight
                 : Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 30),
               child: Text(
                 model.name,
                 style: GoogleFonts.inter(
@@ -56,7 +56,7 @@ clipBehavior: Clip.antiAlias,
                 ? Alignment.centerRight
                 : Alignment.centerLeft,
             decoration: BoxDecoration(
-              color: Color(0x80ffffff),
+              color: const Color(0x80ffffff),
               borderRadius: BorderRadius.circular(84),
             ),
             child: Row(

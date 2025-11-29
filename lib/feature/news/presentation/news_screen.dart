@@ -60,7 +60,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 child: Lottie.asset('assets/animation/Trail loading.json'),
               );
             } else if (state is SourceError) {
-              return Text("Not Found");
+              return const Text("Not Found");
             } else if (state is SourceSuccess) {
 
               return Column(
@@ -76,7 +76,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 ],
               );
             }
-            return Center(child: Text("Select a category"));
+            return const Center(child: Text("Select a category"));
           },
           listener: (context, state) {
             if (state is SourceError) {
