@@ -14,10 +14,12 @@ import 'package:news_app/feature/sources/data/model/source_model.dart';
 import 'package:news_app/feature/sources/data/repo/source_repo_impl.dart';
 import 'package:news_app/feature/sources/domain/usecase/source_usecase.dart';
 import 'package:news_app/feature/sources/presentation/view_model/provider/source_provider.dart';
+import 'package:news_app/feature/themeing/light_theme.dart';
 import 'package:news_app/feature/themeing/themeing.dart';
 import 'package:news_app/l10n/app_localizations.dart';
 import 'core/constants/services/api_constants.dart';
 import 'feature/news/presentation/view_model/article_bloc.dart';
+import 'feature/themeing/dark_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final lightTheme=LightTheme();
+    final darkTheme=DarkTheme();
+
     return BlocBuilder<ThemeingViewModel, ThemeMode>(
       builder: (context, mode) {
         return BlocBuilder<LangModel, String>(
@@ -71,9 +76,9 @@ class MyApp extends StatelessWidget {
               locale: state == "English" ? const Locale("en") : const Locale("ar"),
               debugShowCheckedModeBanner: false,
               title: 'News App',
-              theme: ThemeData.light(),
+              theme: lightTheme.themeData,
               themeMode: mode,
-              darkTheme: ThemeData.dark(),
+              darkTheme: darkTheme.themeData,
               initialRoute: RouteName.homeScreen,
               onGenerateRoute: AppRouter.onGenerateRoute,
             );

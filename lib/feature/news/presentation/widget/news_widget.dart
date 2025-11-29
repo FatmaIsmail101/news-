@@ -35,7 +35,7 @@ class NewsWidget extends StatelessWidget {
               itemCount: articles.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onLongPress: () {
+                  onTap: () {
                  bottomSheet(context,articles[index]);
                   },
                   child: NewsItem(
