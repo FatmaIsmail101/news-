@@ -90,7 +90,7 @@ class CategoryWidget extends StatelessWidget {
                           child: Icon(
                             size: 20.sp,
                             Icons.arrow_forward_ios_rounded,
-                            color: theme == ThemeMode.light
+                            color: theme2 == ThemeMode.light
                                 ? AppColor.mainColorDark
                                 : AppColor.mainColorLight,
                           ),
@@ -102,14 +102,14 @@ class CategoryWidget extends StatelessWidget {
                           height: 60.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: theme == ThemeMode.light
+                            color: theme2 == ThemeMode.light
                                 ? AppColor.mainColorLight
                                 : AppColor.mainColorDark,
                           ),
                           child: Icon(
                             size: 20.sp,
                             Icons.arrow_back_ios_new,
-                            color: theme == ThemeMode.light
+                            color: theme2 == ThemeMode.light
                                 ? AppColor.mainColorDark
                                 : AppColor.mainColorLight,
                           ),
