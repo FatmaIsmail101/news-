@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/constants/color.dart';
 import 'package:news_app/feature/news/presentation/view_model/article_bloc.dart';
 import 'package:news_app/feature/sources/data/model/source_model.dart';
+import 'package:news_app/feature/themeing/themeing.dart';
 import '../../../../../news/presentation/widget/news_widget.dart';
 
 class SourceWidget extends StatefulWidget {
@@ -38,7 +40,7 @@ class _SourceWidgetState extends State<SourceWidget> {
   @override
   Widget build(BuildContext context) {
     final themeing=Theme.of(context);
-
+final theme=context.watch<ThemeingViewModel>().state;
     print("current Index $currentIndex");
     //  int? index = model.sources?.indexWhere((s) => s.id );
     if (widget.model.sources == null || widget.model.sources!.isEmpty) {
@@ -52,8 +54,12 @@ class _SourceWidgetState extends State<SourceWidget> {
           length: widget.model.sources!.length,
           child: TabBar(
             // controller:controller ,
-            labelStyle:  themeing.textTheme.bodyLarge,
-            labelColor: Colors.black,
+            labelStyle:  themeing.textTheme.bodyLarge?.copyWith(
+              color: theme==ThemeMode.light?AppColor.mainColorDark:
+                  AppColor.mainColorLight
+            ),
+            labelColor:  theme==ThemeMode.light?AppColor.mainColorDark:
+            AppColor.mainColorLight,
             onTap: (value) {
               currentIndex = value;
               // final selected = widget.model.sources![value];
@@ -68,9 +74,11 @@ class _SourceWidgetState extends State<SourceWidget> {
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             padding: EdgeInsets.zero,
-            unselectedLabelColor: Colors.black,
+            unselectedLabelColor:  theme==ThemeMode.light?AppColor.mainColorDark:
+            AppColor.mainColorLight,
             dividerColor: Colors.transparent,
-            indicatorColor: Colors.black,
+            indicatorColor:  theme==ThemeMode.light?AppColor.mainColorDark:
+            AppColor.mainColorLight,
             tabs:
                 widget.model.sources
                     ?.map((e) => Tab(text: e.name ?? ""))

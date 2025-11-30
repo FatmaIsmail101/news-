@@ -9,7 +9,9 @@ class ThemeingViewModel extends Cubit<ThemeMode> {
 
   void toggleTheme(String theme) {
     if((state==ThemeMode.light&&theme=="Light")||
-        (state==ThemeMode.dark&&theme=="Dark"))return;
+        (state==ThemeMode.dark&&theme=="Dark")) {
+      return;
+    }
     if(theme=="Light"){
       emit(ThemeMode.light);
       CacheHelper.saveTheme("Light");

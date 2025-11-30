@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/core/routes/route_name.dart';
 import 'package:news_app/feature/home/data/model/category_model.dart';
 import 'package:news_app/feature/news/presentation/news_screen.dart';
+import 'package:news_app/feature/themeing/themeing.dart';
+import '../../../core/constants/color.dart';
 import '../../../l10n/app_localizations.dart';
 import 'category_screen.dart';
 import 'widget/drawer_widget/custom_drawer.dart';
@@ -21,16 +24,20 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = AppLocalizations.of(context);
-
+final theme=context.watch<ThemeingViewModel>().state;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color:  theme==ThemeMode.light?AppColor.mainColorDark:
+          AppColor.mainColorLight
+        ),
         title: Text(categoryModel?.name ?? lang?.home ?? ""),
         centerTitle: true,
         actions:  [InkWell(
             onTap: (){
               Navigator.pushNamed(context, RouteName.searchScreen);
             },
-            child: Icon(Icons.search))],
+            child: const Icon(Icons.search))],
       ),
       drawer: CustomDrawer(onTap: () => home()),
       body: Padding(

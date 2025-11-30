@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:news_app/feature/news/data/model/article_model.dart';
 import 'package:news_app/feature/sources/data/model/source_model.dart';
 
-import '../../feature/themeing/themeing.dart';
 
 class CacheHelper {
   static const String sourceBox = "SourceBox";

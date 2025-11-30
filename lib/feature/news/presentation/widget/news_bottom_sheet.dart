@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/feature/news/data/model/article_model.dart';
 import 'package:news_app/feature/themeing/themeing.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,7 +32,7 @@ final theme=context.watch<ThemeingViewModel>().getTheme();
           width: double.infinity,
           height: 400.h,
           decoration: BoxDecoration(
-            color: AppColor.mainColorLight,
+            color:theme==ThemeMode.dark? AppColor.mainColorLight:AppColor.mainColorDark,
             //   border: Border.all(color: AppColor.mainColorDark),
             borderRadius: BorderRadius.circular(16.w),
           ),

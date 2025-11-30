@@ -18,6 +18,14 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  @override
+  void initState() {
+    ThemeMode currentTheme=context.read<ThemeingViewModel>().state;
+    selectedLanguage=context.read<LangModel>().state;
+selectedTheme=currentTheme==ThemeMode.light?"Light":"Dark";
+    // TODO: implement initState
+    super.initState();
+  }
   String? selectedTheme;
   String? selectedLanguage;
   @override
@@ -83,8 +91,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         e,
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: AppColor.mainColorLight,
+                          fontSize: 20.sp,
+                          color: theme==ThemeData.light? AppColor.mainColorDark:AppColor.mainColorLight,
                         ),
                       ),
                     );
@@ -92,14 +100,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   borderRadius: BorderRadius.circular(16.w),
                   underline: const SizedBox(),
                   iconSize: 30.w,
-                  iconEnabledColor: AppColor.mainColorLight,
+                  iconEnabledColor: theme==ThemeData.light? AppColor.mainColorDark:AppColor.mainColorLight,
 
                   onChanged: (value) {
                     setState(() {
                       selectedTheme = value;
                       // اللي اليوزر اختاره
                       context.read<ThemeingViewModel>().toggleTheme(
-                        value ?? "Light",
+                        value!,
                       );
                     });
                   },

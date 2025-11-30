@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/feature/home/presentation/widget/category/category.dart';
-import 'package:news_app/feature/themeing/theme_app.dart';
-import '../../../core/constants/color.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../themeing/themeing.dart';
 import '../data/model/category_model.dart';
@@ -20,7 +17,7 @@ class HomeScreenCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = AppLocalizations.of(context);
-    final theme = context.watch<ThemeingViewModel>().getTheme();
+    final theme = context.watch<ThemeingViewModel>().state;
     final currentTheme = theme == ThemeMode.dark ? categoriesListDark : categoriesList;
     final themeing=Theme.of(context);
     return Column(
