@@ -15,6 +15,7 @@ class NewsBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theming=Theme.of(context);
 final theme=context.watch<ThemeingViewModel>().getTheme();
+    final theme2=context.watch<ThemeingViewModel>().state;
 
     String fullText = articleModel.description ?? "";
     int maxLength = 100;
@@ -37,45 +38,47 @@ final theme=context.watch<ThemeingViewModel>().getTheme();
             borderRadius: BorderRadius.circular(16.w),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: 10.h,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.w),
-                  clipBehavior: Clip.antiAlias,
-                  child:
-                      articleModel.urlToImage != null &&
-                          articleModel.urlToImage!.isNotEmpty
-                      ? Image.network(articleModel.urlToImage ?? "")
-                      : Image.asset('assets/images/placeholder.png'),
-                ),
-                Text(
-                  preview,
-                  style: theming.textTheme.bodyMedium,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    launchUrl(
-                      Uri.parse(articleModel.url ?? ""),
-                      mode: LaunchMode.inAppWebView,
-                    );
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:theme==ThemeMode.light? AppColor.mainColorLight:AppColor.mainColorDark,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.w),
+            padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: 10.h,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.w),
+                    clipBehavior: Clip.antiAlias,
+                    child:
+                        articleModel.urlToImage != null &&
+                            articleModel.urlToImage!.isNotEmpty
+                        ? Image.network(articleModel.urlToImage ?? "")
+                        : Image.asset('assets/images/placeholder.png'),
+                  ),
+                  Text(
+                    preview,
+                    style: theming.textTheme.bodyMedium,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      launchUrl(
+                        Uri.parse(articleModel.url ?? ""),
+                        mode: LaunchMode.inAppWebView,
+                      );
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:theme2==ThemeMode.light? AppColor.mainColorLight:AppColor.mainColorDark,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    child: Text(
+                      "View Full Article",
+                      style: theming.textTheme.bodyLarge,
+                    ),
                   ),
-                  child: Text(
-                    "View Full Article",
-                    style: theming.textTheme.bodyLarge,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
