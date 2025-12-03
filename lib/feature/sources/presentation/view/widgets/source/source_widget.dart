@@ -40,7 +40,7 @@ class _SourceWidgetState extends State<SourceWidget> {
   @override
   Widget build(BuildContext context) {
     final themeing=Theme.of(context);
-final theme=context.watch<ThemeingViewModel>().state;
+    final theme=context.watch<ThemeingViewModel>().state;
     print("current Index $currentIndex");
     //  int? index = model.sources?.indexWhere((s) => s.id );
     if (widget.model.sources == null || widget.model.sources!.isEmpty) {
@@ -55,8 +55,8 @@ final theme=context.watch<ThemeingViewModel>().state;
           child: TabBar(
             // controller:controller ,
             labelStyle:  themeing.textTheme.bodyLarge?.copyWith(
-              color: theme==ThemeMode.light?AppColor.mainColorDark:
-                  AppColor.mainColorLight
+                color: theme==ThemeMode.light?AppColor.mainColorDark:
+                AppColor.mainColorLight
             ),
             labelColor:  theme==ThemeMode.light?AppColor.mainColorDark:
             AppColor.mainColorLight,
@@ -80,9 +80,9 @@ final theme=context.watch<ThemeingViewModel>().state;
             indicatorColor:  theme==ThemeMode.light?AppColor.mainColorDark:
             AppColor.mainColorLight,
             tabs:
-                widget.model.sources
-                    ?.map((e) => Tab(text: e.name ?? ""))
-                    .toList() ??
+            widget.model.sources
+                ?.map((e) => Tab(text: e.name ?? ""))
+                .toList() ??
                 [],
           ),
         ),

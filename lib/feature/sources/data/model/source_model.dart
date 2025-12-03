@@ -1,5 +1,9 @@
 import 'package:hive/hive.dart';
+import 'package:injectable/injectable.dart';
+
 part 'source_model.g.dart';
+
+@injectable
 @HiveType(typeId: 0)
 class SourceModel {
   @HiveField(0)
@@ -7,6 +11,7 @@ class SourceModel {
   @HiveField(1)
   List<Source>? sources;
 
+  @factoryMethod
   SourceModel({this.status, this.sources});
 
   factory SourceModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +42,7 @@ class Source {
   @HiveField(6)
   String? country;
 
+  @factoryMethod
   Source({
     this.id,
     this.name,

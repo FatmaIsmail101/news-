@@ -51,7 +51,10 @@ dependencies:
   talker_dio_logger: ^5.1.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-
+  # add injectable to your dependencies
+  injectable:
+  # add get_it
+  get_it:
   path_provider: ^2.1.5
   url_launcher: ^6.3.2
   device_preview: ^1.3.1
@@ -67,6 +70,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   build_runner: ^2.4.11
+  injectable_generator:
 
   hive_generator: ^2.0.0
 

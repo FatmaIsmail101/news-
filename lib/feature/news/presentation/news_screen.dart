@@ -24,7 +24,7 @@ class NewsScreen extends StatefulWidget {
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  String sourceId = "";
+  //String sourceId = "";
 //final controller=TabController(length: s, vsync: vsync)
   @override
   Widget build(BuildContext context) {

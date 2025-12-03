@@ -11,7 +11,6 @@ class SourceDSRemoteImpl implements SourceDSRemote {
 
   @override
   Future<SourceModel> getSourcesResponses(String catId) async {
-    String? apiKey = await SecureStorageService.getApiKey();
 
     var response = await dio.get(
       ApiConstants.sourceEndPoint,

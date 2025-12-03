@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:news_app/feature/sources/domain/usecase/source_usecase.dart';
 import 'package:news_app/feature/sources/presentation/view_model/state.dart';
 
+import '../../../data/model/source_model.dart';
+
 class SourceProvider extends Cubit< SourceState>{
   SourceUseCase useCase;
   SourceProvider(this.useCase):super(SourceInitial());
@@ -16,5 +18,10 @@ class SourceProvider extends Cubit< SourceState>{
       emit(SourceError(e.toString()));
       print(e.toString());
     }
+  }
+
+  void changeIndex(int index,String newId,SourceModel sources){
+    emit(IndexState(currentIndex: index, id: newId,sources: sources));
+
   }
 }
